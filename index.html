@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terima Kasih, Ibu Yuan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Dancing+Script:wght@600&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+/* VOICE: lembut, haru, penuh kasih — sedikit warna, banyak ruang
+   IDEA: surat bersegel lilin yang dibuka lembar demi lembar seperti buku kecil
+   PICTURE: amplop bersegel hati, lalu tiap lembar berbingkai dengan judul menempel di bingkainya
+   COLOUR and TYPE: krem gading, merah muda mawar, hijau sage, garis emas; Great Vibes, Cormorant, Dancing Script
+   LAYOUT: satu layar per halaman, tanpa gulir; navigasi tetap di bawah, nyaman untuk jempol */
+:root{color-scheme:light dark;
+--bg:light-dark(#F6EDE4,#221A1C);--paper:light-dark(#FFFCF8,#2E2427);--ink:light-dark(#4A3A3A,#F3E6E0);
+--soft:light-dark(#6B5A55,#CBB8B1);--rose:light-dark(#A3566A,#E59AAC);--petal:light-dark(#F2C9CF,#7A4352);
+--sage:light-dark(#7E8F78,#9FB298);--gold:light-dark(#B8925F,#D2B07E);--line:light-dark(#E6CFC2,#4A3A3D);
+--navh:76px}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{height:100%;margin:0;overflow:hidden}
+body{background:var(--bg);color:var(--ink);font:17px/1.55 'Cormorant Garamond',Georgia,serif;-webkit-tap-highlight-color:transparent;overscroll-behavior:none}
+.script{font-family:'Great Vibes',cursive;font-weight:400}
+.sign{font-family:'Dancing Script',cursive;font-weight:600}
+.petals{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.petals i{position:absolute;top:-30px;width:12px;height:9px;background:var(--petal);border-radius:12px 0 12px 0;opacity:.7;animation:fall linear infinite}
+@keyframes fall{to{transform:translate(var(--dx),110vh) rotate(540deg)}}
+.app{position:fixed;inset:0;height:100dvh;z-index:1}
+.page{position:absolute;inset:0 0 var(--navh);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(14px,3vh,28px) 18px 8px;opacity:0;visibility:hidden;transform:translateX(30px);transition:opacity .6s ease,transform .6s ease,visibility 0s .6s}
+.page.on{opacity:1;visibility:visible;transform:none;transition:opacity .6s ease,transform .6s ease}
+.page.left{transform:translateX(-30px)}
+.page.cover{inset:0}
+.inner{width:100%;max-width:440px;max-height:100%;display:flex;flex-direction:column;align-items:center}
+/* amplop */
+.cover .inner{gap:clamp(12px,2.6vh,22px);text-align:center}
+.to{margin:0;font-size:16px;font-style:italic;color:var(--soft)}
+.cover h1{margin:-4px 0 0;font-size:clamp(54px,15vw,80px);line-height:1.05;color:var(--rose)}
+.env{position:relative;width:min(300px,78vw);aspect-ratio:3/2;margin-top:clamp(20px,5vh,46px);perspective:900px;cursor:pointer;border:0;padding:0;background:none}
+.env .body{position:absolute;inset:0;background:var(--paper);border:1px solid var(--line);border-radius:6px;box-shadow:0 18px 40px -18px rgba(90,50,50,.45)}
+.env .body::before,.env .body::after{content:"";position:absolute;bottom:0;width:50%;height:62%;background:light-dark(#F8EFE8,#352A2D)}
+.env .body::before{left:0;clip-path:polygon(0 0,100% 100%,0 100%)}
+.env .body::after{right:0;clip-path:polygon(100% 0,100% 100%,0 100%)}
+.env .flap{position:absolute;left:0;right:0;top:0;height:62%;background:light-dark(#F1E2D8,#3A2E31);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .8s ease;z-index:2}
+.env .seal{position:absolute;left:50%;top:62%;width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:50%;background:var(--rose);display:grid;place-items:center;z-index:3;box-shadow:0 0 0 4px light-dark(#C27C8E,#B86A7E),0 6px 14px -4px rgba(0,0,0,.35);transition:opacity .4s;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.08)}}
+.env .note{position:absolute;left:8%;right:8%;top:10%;bottom:6%;background:var(--paper);border:1px solid var(--line);border-radius:4px;z-index:1;transition:transform .9s .3s ease;display:grid;place-items:center}
+.env .note span{font-size:30px;color:var(--rose)}
+.env.open .flap{transform:rotateX(180deg);z-index:0}
+.env.open .seal{opacity:0;animation:none}
+.env.open .note{transform:translateY(-46%)}
+.hint{margin:4px 0 0;font-size:15px;font-style:italic;color:var(--soft)}
+/* bingkai lembar */
+.frame{position:relative;width:100%;background:var(--paper);border:1px solid var(--line);border-radius:22px;box-shadow:0 0 0 6px var(--paper),0 0 0 7px var(--line),0 26px 50px -30px rgba(90,50,50,.45);text-align:center}
+.arch{border-radius:190px 190px 14px 14px;padding:clamp(56px,11vh,84px) clamp(20px,6vw,36px) clamp(22px,4vh,34px)}
+.sprig{position:absolute;top:-16px;width:118px;height:88px}
+.sprig.l{left:-14px}.sprig.r{right:-14px;transform:scaleX(-1)}
+.eyebrow{margin:0;font-size:14px;font-weight:600;color:var(--gold)}
+.arch h2{margin:2px 0 0;font-size:clamp(48px,13vw,64px);line-height:1.05;color:var(--rose)}
+.rule{display:block;margin:clamp(8px,1.6vh,14px) auto clamp(14px,2.6vh,22px)}
+.poem{margin:0;font-size:clamp(17px,2.6vh,21px);font-style:italic;line-height:1.75}
+/* judul menempel di bingkai */
+.tag{position:absolute;left:50%;top:0;transform:translate(-50%,-56%);margin:0;padding:0 14px;white-space:nowrap;font-size:clamp(40px,11vw,54px);line-height:1.1;color:var(--rose);background:linear-gradient(to bottom,var(--bg) 0 56%,var(--paper) 56% 100%)}
+.titled{padding:clamp(46px,8vh,60px) clamp(20px,6vw,32px) clamp(20px,3.6vh,30px);margin-top:clamp(26px,5vh,40px)}
+.letter p.body{margin:0 0 clamp(8px,1.6vh,14px);text-align:left;font-size:clamp(15.5px,2.35vh,18px);line-height:1.6;text-wrap:pretty}
+.closing{margin:clamp(6px,1.4vh,12px) 0 0;font-style:italic;color:var(--soft);font-size:16px}
+.letter .sign{margin:0;font-size:clamp(21px,6vw,26px);white-space:nowrap}
+/* kartu terima kasih */
+.cards{padding:clamp(46px,8vh,60px) 0 clamp(16px,3vh,24px)}
+.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;touch-action:pan-x}
+.track::-webkit-scrollbar{display:none}
+.card{flex:0 0 100%;scroll-snap-align:center;padding:4px clamp(22px,7vw,36px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(8px,1.6vh,14px);min-height:clamp(200px,32vh,280px)}
+.card h3{margin:0;font-size:clamp(22px,6vw,26px);font-weight:600;line-height:1.25;text-wrap:balance}
+.card p{margin:0;font-size:clamp(17px,4.6vw,19px);font-style:italic;color:var(--soft);max-width:30ch}
+.cnav{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:6px}
+.cnav button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--rose);cursor:pointer;display:grid;place-items:center}
+.cnav button:disabled{opacity:.35}
+.cdots{display:flex;gap:8px}
+.cdots b{width:7px;height:7px;border-radius:50%;background:var(--line);transition:background .3s,transform .3s}
+.cdots b.on{background:var(--rose);transform:scale(1.3)}
+/* hati penutup */
+.final .inner{text-align:center;gap:clamp(10px,2vh,16px)}
+.final h2{margin:0;font-size:clamp(46px,12vw,60px);line-height:1.1;color:var(--rose)}
+.final .sub{margin:0;font-style:italic;color:var(--soft)}
+.heart{width:clamp(100px,16vh,124px);height:clamp(100px,16vh,124px);border:0;border-radius:50%;background:var(--paper);box-shadow:0 0 0 1px var(--line),0 16px 36px -16px var(--rose);cursor:pointer;display:grid;place-items:center;margin:clamp(6px,2vh,16px) auto;animation:beat 1.6s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.08)}30%{transform:scale(.98)}45%{transform:scale(1.05)}}
+.msg p{margin:0 0 clamp(6px,1.4vh,12px)}.msg .roti{color:var(--rose);font-size:1.08em}
+.from .sign{display:inline-block;margin-top:2px;font-size:clamp(20px,5.6vw,24px);font-style:normal;color:var(--ink);white-space:nowrap}
+.mute{position:fixed;top:max(12px,env(safe-area-inset-top));right:14px;z-index:6;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--paper);color:var(--rose);display:none;place-items:center;cursor:pointer}
+.mute.show{display:grid}.mute.off .w{display:none}.mute.off svg{opacity:.6}
+.msg{margin:0 auto;max-width:30ch;font-size:clamp(17px,2.6vh,21px);line-height:1.5;font-style:italic;opacity:0;transform:translateY(10px);transition:opacity .9s,transform .9s}
+.loved .msg{opacity:1;transform:none}
+.from{margin:clamp(4px,1.2vh,12px) 0 0;font-size:15px;font-style:italic;color:var(--soft)}
+.fly{position:fixed;z-index:5;pointer-events:none;animation:up 2.6s ease-out forwards}
+@keyframes up{to{transform:translate(var(--dx),-70vh) scale(.6) rotate(var(--r));opacity:0}}
+/* navigasi halaman */
+.nav{position:absolute;left:0;right:0;bottom:0;height:var(--navh);padding:0 18px max(10px,env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;max-width:480px;margin:0 auto;transition:opacity .5s}
+.nav.hide{opacity:0;pointer-events:none}
+.nav button{min-width:48px;height:48px;border-radius:999px;border:1px solid var(--line);background:var(--paper);color:var(--rose);font:600 16px 'Cormorant Garamond',serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 16px}
+.nav .next{background:var(--rose);color:light-dark(#fff,#2A1E21);border-color:var(--rose)}
+.nav button:disabled{opacity:.3}
+.pdots{display:flex;gap:8px}
+.pdots b{width:8px;height:8px;border-radius:50%;background:var(--line);transition:all .3s}
+.pdots b.on{background:var(--gold);width:20px;border-radius:4px}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.petals{display:none}.msg{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="petals" id="petals" aria-hidden="true"></div>
+<button class="mute" id="mute" aria-label="Matikan musik"><svg id="muteIco" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path class="w" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg></button>
+<div class="app" id="app">
+
+<section class="page cover on" aria-label="Amplop">
+<div class="inner">
+<p class="to">Sebuah surat kecil untuk</p>
+<h1 class="script">Ibu Yuan</h1>
+<button class="env" id="env" aria-label="Buka surat untuk Ibu Yuan">
+<span class="note"><span class="script">Untuk Ibu</span></span>
+<span class="body"></span>
+<span class="flap"></span>
+<span class="seal"><svg width="26" height="24" viewBox="0 0 22 20" aria-hidden="true"><path d="M11 19C6 15 1 11 1 6.5 1 3 3.6 1 6.4 1c2.2 0 3.8 1.4 4.6 3 .8-1.6 2.4-3 4.6-3C18.4 1 21 3 21 6.5 21 11 16 15 11 19Z" fill="#FFF4F1"/></svg></span>
+</button>
+<p class="hint">Ketuk segel hati untuk membuka</p>
+</div>
+</section>
+
+<section class="page" aria-label="Puisi">
+<div class="inner">
+<article class="frame arch">
+<svg class="sprig l" viewBox="0 0 150 110" aria-hidden="true"><use href="#sprig"/></svg>
+<svg class="sprig r" viewBox="0 0 150 110" aria-hidden="true"><use href="#sprig"/></svg>
+<p class="eyebrow">Selamat Hari Guru Nasional</p>
+<h2 class="script">Ibu Yuan</h2>
+<svg class="rule" width="160" height="12" viewBox="0 0 170 12" aria-hidden="true" fill="none" stroke="var(--gold)"><path d="M0 6H70M100 6H170"/><path d="M85 1l5 5-5 5-5-5Z" fill="var(--gold)"/></svg>
+<p class="poem">Di setiap ilmu yang kini kupahami,<br>ada sabarmu yang tulus sepenuh hati.<br>Di setiap langkah kecilku yang berani,<br>ada dukunganmu yang selalu menemani.</p>
+</article>
+</div>
+</section>
+
+<section class="page" aria-label="Terima kasih">
+<div class="inner">
+<article class="frame cards">
+<h2 class="tag script">Terima kasih, Bu…</h2>
+<div class="track" id="track"></div>
+<div class="cnav">
+<button id="cprev" aria-label="Kartu sebelumnya"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+<div class="cdots" id="cdots"></div>
+<button id="cnext" aria-label="Kartu berikutnya"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+</div>
+</article>
+</div>
+</section>
+
+<section class="page final" id="final" aria-label="Penutup">
+<div class="inner">
+<h2 class="script">Untukmu, Ibu</h2>
+<p class="sub">Ketuk hati ini</p>
+<button class="heart" id="heart" aria-label="Kirim sayang untuk Ibu Yuan"><svg width="54" height="50" viewBox="0 0 22 20" aria-hidden="true"><path d="M11 19C6 15 1 11 1 6.5 1 3 3.6 1 6.4 1c2.2 0 3.8 1.4 4.6 3 .8-1.6 2.4-3 4.6-3C18.4 1 21 3 21 6.5 21 11 16 15 11 19Z" fill="var(--rose)"/></svg></button>
+<div class="msg"><p class="roti">Lembutnya roti ini tak selembut kasih Ibu yang setiap hari menghangatkan hati kami.</p><p>Selamat Hari Guru Nasional, Ibu Yuan. Semoga Ibu selalu sehat, bahagia, dan dilimpahi kebaikan.</p></div>
+<p class="from">Dengan penuh sayang,<br><span class="sign">Adry Runako Abqari Sumilat</span></p>
+</div>
+</section>
+
+<nav class="nav hide" id="nav" aria-label="Halaman">
+<button id="prev" aria-label="Halaman sebelumnya"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+<div class="pdots" id="pdots"></div>
+<button class="next" id="next">Lanjut <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+</nav>
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs><g id="sprig" fill="none" stroke-linecap="round">
+<path d="M10 100C30 66 60 36 120 14" stroke="var(--sage)" stroke-width="1.2"/>
+<path d="M44 66c-4-16 2-26 14-30" stroke="var(--sage)"/>
+<ellipse cx="28" cy="78" rx="9" ry="3.6" transform="rotate(-40 28 78)" fill="var(--sage)" opacity=".55"/>
+<ellipse cx="62" cy="48" rx="10" ry="3.8" transform="rotate(-30 62 48)" fill="var(--sage)" opacity=".55"/>
+<ellipse cx="88" cy="30" rx="9" ry="3.4" transform="rotate(-20 88 30)" fill="var(--sage)" opacity=".55"/>
+<ellipse cx="40" cy="60" rx="7" ry="3" transform="rotate(35 40 60)" fill="var(--sage)" opacity=".4"/>
+<g fill="var(--petal)" stroke="var(--rose)" stroke-width=".7"><circle cx="120" cy="8" r="4.2"/><circle cx="127" cy="13" r="4.2"/><circle cx="124" cy="21" r="4.2"/><circle cx="116" cy="21" r="4.2"/><circle cx="113" cy="13" r="4.2"/></g><circle cx="120" cy="15" r="2.4" fill="var(--gold)"/>
+<g fill="var(--petal)" stroke="var(--rose)" stroke-width=".6"><circle cx="58" cy="30" r="3"/><circle cx="63" cy="34" r="3"/><circle cx="61" cy="39" r="3"/><circle cx="55" cy="39" r="3"/><circle cx="53" cy="34" r="3"/></g><circle cx="58" cy="35" r="1.7" fill="var(--gold)"/>
+</g></defs>
+</svg>
+
+<script>
+{
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const HEART='<path d="M11 19C6 15 1 11 1 6.5 1 3 3.6 1 6.4 1c2.2 0 3.8 1.4 4.6 3 .8-1.6 2.4-3 4.6-3C18.4 1 21 3 21 6.5 21 11 16 15 11 19Z"';
+
+/* kartu terima kasih */
+const cards=[
+['Karena Ibu sabar','Saat aku belum mengerti, Ibu menjelaskan lagi dengan senyum yang sama.'],
+['Karena Ibu percaya padaku','Ibu melihat aku bisa, bahkan sebelum aku sendiri yakin.'],
+['Karena Ibu selalu ada','Setiap pagi di kelas terasa hangat karena ada Ibu di sana.'],
+['Karena Ibu mengajarkan lebih dari pelajaran','Ibu mengajariku jujur, berani, dan baik kepada teman.'],
+['Karena Ibu adalah Ibu Yuan','Guru yang akan selalu Adry ingat, sampai kapan pun.']
+];
+const track=document.getElementById('track'),cdots=document.getElementById('cdots');
+track.innerHTML=cards.map(c=>`<div class="card"><svg width="28" height="26" viewBox="0 0 22 20" aria-hidden="true">${HEART} fill="var(--gold)"/></svg><h3>${c[0]}</h3><p>${c[1]}</p></div>`).join('');
+cdots.innerHTML=cards.map(()=>'<b></b>').join('');
+const cItems=[...track.children],cDotEls=[...cdots.children],cprev=document.getElementById('cprev'),cnext=document.getElementById('cnext');
+let ci=0,seenAll=false;const CARDPAGE=2;
+function cmark(i){ci=i;cDotEls.forEach((d,k)=>d.classList.toggle('on',k===i));cprev.disabled=i===0;cnext.disabled=i===cItems.length-1;if(i===cItems.length-1&&!seenAll){seenAll=true;if(typeof updNext==='function')updNext()}}
+function cgo(i){i=Math.max(0,Math.min(cItems.length-1,i));track.scrollTo({left:i*track.clientWidth,behavior:reduce?'auto':'smooth'});cmark(i)}
+cmark(0);
+track.addEventListener('scroll',()=>cmark(Math.round(track.scrollLeft/track.clientWidth)),{passive:true});
+cprev.addEventListener('click',()=>cgo(ci-1));
+cnext.addEventListener('click',()=>cgo(ci+1));
+
+/* halaman */
+const pages=[...document.querySelectorAll('.page')],nav=document.getElementById('nav'),pdots=document.getElementById('pdots'),prev=document.getElementById('prev'),next=document.getElementById('next');
+pdots.innerHTML=pages.slice(1).map(()=>'<b></b>').join('');
+const pDotEls=[...pdots.children];
+let cur=0;
+function show(i){
+i=Math.max(1,Math.min(pages.length-1,i));if(i>cur&&cur===CARDPAGE&&!seenAll)return;
+pages.forEach((p,k)=>{p.classList.toggle('on',k===i);p.classList.toggle('left',k<i)});
+cur=i;nav.classList.remove('hide');
+pDotEls.forEach((d,k)=>d.classList.toggle('on',k===i-1));
+prev.disabled=i===1;
+updNext();
+}
+function updNext(){const lock=cur===pages.length-1||(cur===CARDPAGE&&!seenAll);next.style.visibility=lock?'hidden':'visible'}
+prev.addEventListener('click',()=>show(cur-1));
+next.addEventListener('click',()=>show(cur+1));
+document.addEventListener('keydown',e=>{if(cur===0)return;if(e.key==='ArrowRight'&&!track.contains(e.target))show(cur+1);if(e.key==='ArrowLeft'&&!track.contains(e.target))show(cur-1)});
+
+/* geser antarhalaman (kecuali di kartu) */
+let sx=null,sy=0;
+document.getElementById('app').addEventListener('touchstart',e=>{if(cur===0||track.contains(e.target)){sx=null;return}sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
+document.getElementById('app').addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5)show(cur+(dx<0?1:-1));sx=null},{passive:true});
+
+
+/* musik & suara: dirender sekali di awal jadi rekaman jadi, lalu diputar berulang (ringan untuk HP, tanpa kresek) */
+let ac=null,gain=null,src=null,muted=false,musicBuf=null,chimeBuf=null;
+const mf=m=>440*Math.pow(2,(m-69)/12);
+const BEAT=.62,SR=44100,VOL=.8;
+const CH={C:[48,55,60,64],Am:[45,52,57,60],F:[41,48,53,57],Dm:[38,45,50,53],G:[43,50,55,59]};
+const SONG=[
+['C',[[0,76,2],[2,79,1]]],['Am',[[0,81,2],[2,79,1]]],['F',[[0,77,1],[1,76,1],[2,74,1]]],['G',[[0,74,2],[2,71,1]]],
+['C',[[0,76,2],[2,72,1]]],['Am',[[0,72,1],[1,74,1],[2,76,1]]],['Dm',[[0,77,1.5],[1.5,76,.5],[2,74,1]]],['G',[[0,71,1],[1,74,1],[2,79,1]]]];
+const LOOP=SONG.length*3*BEAT,TAIL=3;
+function chain(c,irs){
+const out=c.createGain();out.gain.value=.9;out.connect(c.destination);
+const verb=c.createConvolver(),len=Math.floor(c.sampleRate*irs),ir=c.createBuffer(2,len,c.sampleRate);
+for(let ch=0;ch<2;ch++){const d=ir.getChannelData(ch);let lp=0;for(let i=0;i<len;i++){lp+=((Math.random()*2-1)-lp)*.15;d[i]=lp*Math.pow(1-i/len,3)}}
+verb.buffer=ir;const wf=c.createBiquadFilter();wf.type='lowpass';wf.frequency.value=2200;const wet=c.createGain();wet.gain.value=.35;
+verb.connect(wf);wf.connect(wet);wet.connect(out);
+const dry=c.createBiquadFilter();dry.type='lowpass';dry.frequency.value=4800;dry.connect(out);dry.connect(verb);
+return dry}
+function bell(c,dst,m,t,dur,vol){
+const o=c.createOscillator(),o2=c.createOscillator(),g=c.createGain(),g2=c.createGain();
+o.frequency.value=mf(m);o2.frequency.value=mf(m)*2;g2.gain.value=.08;o2.connect(g2);g2.connect(g);o.connect(g);
+const end=t+dur+1.2;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.02);g.gain.exponentialRampToValueAtTime(.0001,end);
+g.connect(dst);o.start(t);o2.start(t);o.stop(end);o2.stop(end)}
+function pad(c,dst,m,t,dur,vol){
+const o=c.createOscillator(),g=c.createGain(),f=c.createBiquadFilter();
+o.type='triangle';o.frequency.value=mf(m);f.type='lowpass';f.frequency.value=600;
+g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.4);g.gain.linearRampToValueAtTime(0,t+dur+.5);
+o.connect(f);f.connect(g);g.connect(dst);o.start(t);o.stop(t+dur+.6)}
+const OC=window.OfflineAudioContext||window.webkitOfflineAudioContext;
+function loud(buf){const K=1.1,T=Math.tanh(K);let pk=0;for(let ch=0;ch<buf.numberOfChannels;ch++){const d=buf.getChannelData(ch);for(let i=0;i<d.length;i++)pk=Math.max(pk,Math.abs(d[i]))}if(!pk)return;
+for(let ch=0;ch<buf.numberOfChannels;ch++){const d=buf.getChannelData(ch);for(let i=0;i<d.length;i++)d[i]=.9*d[i]/pk}}
+async function renderChime(){if(!OC)return;
+const c2=new OC(2,Math.ceil(2.4*SR),SR),d2=chain(c2,1.2);
+[72,76,79,84,88].forEach((m,k)=>bell(c2,d2,m,.02+k*.12,.45,.08));bell(c2,d2,91,.66,1,.06);
+chimeBuf=await c2.startRendering();loud(chimeBuf)}
+async function renderMusic(){if(!OC)return;
+const c=new OC(2,Math.ceil((LOOP+TAIL)*SR),SR),dst=chain(c,1.8);
+SONG.forEach(([ch,mel],i)=>{const t=i*3*BEAT,tn=CH[ch];pad(c,dst,tn[0],t,BEAT*3,.06);
+[1,2,3,2,3,2].forEach((k,j)=>bell(c,dst,tn[k]+12,t+j*BEAT/2,BEAT/2,.03));
+mel.forEach(([b,m,d])=>bell(c,dst,m,t+b*BEAT,d*BEAT,.09))});
+const raw=await c.startRendering(),n=Math.round(LOOP*SR);
+musicBuf=new AudioBuffer({length:n,numberOfChannels:2,sampleRate:SR});
+for(let ch=0;ch<2;ch++){const r=raw.getChannelData(ch),d=musicBuf.getChannelData(ch);for(let i=0;i<n;i++)d[i]=r[i];for(let i=n;i<r.length;i++)d[i-n]+=r[i];
+}
+loud(musicBuf)}
+const chimeReady=renderChime().catch(()=>{});
+const musicReady=chimeReady.then(renderMusic).catch(()=>{});
+async function startMusic(){
+try{ac=ac||new (window.AudioContext||window.webkitAudioContext)({latencyHint:'playback'})}catch(e){return}
+if(ac.resume)ac.resume();
+gain=ac.createGain();gain.gain.value=muted?0:VOL;gain.connect(ac.destination);
+document.getElementById('mute').classList.add('show');
+await chimeReady;let musicAt=ac.currentTime+.15;
+if(chimeBuf){const ch=ac.createBufferSource();ch.buffer=chimeBuf;const cg=ac.createGain();cg.gain.value=.6;ch.connect(cg);cg.connect(gain);ch.start(ac.currentTime+.02);musicAt=ac.currentTime+.7}
+await musicReady;if(!musicBuf)return;
+const at=Math.max(musicAt,ac.currentTime+.05);
+src=ac.createBufferSource();src.buffer=musicBuf;src.loop=true;
+const mg=ac.createGain();mg.gain.setValueAtTime(.001,at);mg.gain.linearRampToValueAtTime(1,at+.6);
+src.connect(mg);mg.connect(gain);src.start(at)}
+const muteBtn=document.getElementById('mute');
+muteBtn.addEventListener('click',()=>{if(!gain)return;muted=!muted;muteBtn.classList.toggle('off',muted);muteBtn.setAttribute('aria-label',muted?'Nyalakan musik':'Matikan musik');
+gain.gain.cancelScheduledValues(ac.currentTime);gain.gain.setValueAtTime(gain.gain.value,ac.currentTime);gain.gain.linearRampToValueAtTime(muted?0:VOL,ac.currentTime+.4)});
+document.addEventListener('visibilitychange',()=>{if(!ac)return;document.hidden?ac.suspend():ac.resume()});
+/* amplop */
+const env=document.getElementById('env');
+env.addEventListener('click',()=>{if(env.classList.contains('open'))return;env.classList.add('open');startMusic().catch(()=>{});setTimeout(()=>show(1),reduce?0:1400)});
+
+/* kelopak */
+if(!reduce){document.getElementById('petals').innerHTML=Array.from({length:14},()=>{const l=Math.random()*100,d=9+Math.random()*9,del=-Math.random()*18,dx=(Math.random()*160-80)+'px',s=.7+Math.random()*.7;return `<i style="left:${l}%;animation-duration:${d}s;animation-delay:${del}s;--dx:${dx};scale:${s}"></i>`}).join('')}
+
+/* hati */
+const heart=document.getElementById('heart');
+heart.addEventListener('click',()=>{
+document.getElementById('final').classList.add('loved');
+if(reduce)return;
+const r=heart.getBoundingClientRect();
+for(let k=0;k<16;k++){const h=document.createElement('span');h.className='fly';const sz=14+Math.random()*18;h.style.left=(r.left+r.width/2-sz/2)+'px';h.style.top=(r.top+r.height/2-sz/2)+'px';h.style.setProperty('--dx',(Math.random()*240-120)+'px');h.style.setProperty('--r',(Math.random()*60-30)+'deg');h.style.animationDelay=(k*0.06)+'s';h.innerHTML=`<svg width="${sz}" height="${sz}" viewBox="0 0 22 20">${HEART} fill="${k%3?'var(--rose)':'var(--petal)'}"/></svg>`;document.body.appendChild(h);setTimeout(()=>h.remove(),3400)}
+});
+}
+</script>
+</body>
+</html>
